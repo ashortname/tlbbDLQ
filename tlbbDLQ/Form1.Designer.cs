@@ -205,18 +205,30 @@ namespace tlbbDLQ
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(441, 157);
             this.label7.Name = "label7";
+<<<<<<< HEAD
             this.label7.Size = new System.Drawing.Size(62, 15);
             this.label7.TabIndex = 14;
             this.label7.Text = "login：";
+=======
+            this.label7.Size = new System.Drawing.Size(55, 15);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "label7";
+>>>>>>> fd20c148dd604cc3b6cc6ec009d8f5c3333c5e12
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(441, 188);
             this.label8.Name = "label8";
+<<<<<<< HEAD
             this.label8.Size = new System.Drawing.Size(54, 15);
             this.label8.TabIndex = 15;
             this.label8.Text = "game：";
+=======
+            this.label8.Size = new System.Drawing.Size(55, 15);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "label8";
+>>>>>>> fd20c148dd604cc3b6cc6ec009d8f5c3333c5e12
             // 
             // Form1
             // 

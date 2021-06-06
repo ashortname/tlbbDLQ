@@ -26,8 +26,11 @@ namespace tlbbDLQ
         private List<Process> list_pro;
 
         private IPEndPoint localLogin;
+<<<<<<< HEAD
         private IPEndPoint ip_game;
         private IPEndPoint ip_login;
+=======
+>>>>>>> fd20c148dd604cc3b6cc6ec009d8f5c3333c5e12
 
         public Form1()
         {
@@ -37,7 +40,11 @@ namespace tlbbDLQ
             list_pro = new List<Process>();
         }
 
+<<<<<<< HEAD
         private void accept(ref IPEndPoint remote, TcpListener server)
+=======
+        private void accept(IPEndPoint remote, TcpListener server)
+>>>>>>> fd20c148dd604cc3b6cc6ec009d8f5c3333c5e12
         {
             try
             {
@@ -54,12 +61,19 @@ namespace tlbbDLQ
                         cm.doRun(acc, remote);
                         list_connect.Add(cm);
                     }
+<<<<<<< HEAD
                     Thread.Sleep(800);
+=======
+>>>>>>> fd20c148dd604cc3b6cc6ec009d8f5c3333c5e12
                 }
                 server.Stop();
             }
             catch (Exception ex)
             {
+<<<<<<< HEAD
+=======
+
+>>>>>>> fd20c148dd604cc3b6cc6ec009d8f5c3333c5e12
                 Tools.Log("[At task accept]: Error! " + ex.Message);
             }
         }
@@ -94,6 +108,7 @@ namespace tlbbDLQ
                MessageBox.Show("请把启动器放在游戏根目录！");
                return;
            }
+<<<<<<< HEAD
            int num_login_port = Convert.ToInt32(numeric_login.Value);
            int num_game_port = Convert.ToInt32(numeric_game.Value);
            ip_game = new IPEndPoint(IPAddress.Parse(textServerIP.Text), num_game_port);
@@ -138,6 +153,66 @@ namespace tlbbDLQ
            pro.StartInfo.Arguments = "-fl C0A80108 3039 12D82B";
            pro.Start();
            list_pro.Add(pro);
+=======
+            try
+            {
+                if (taskGaming != null)
+                {
+                    CancelTokenSource.Cancel();
+                    taskGaming = null;
+                    taskLogin = null;
+                    //ls_login.Stop();
+                    //ls_game.Stop();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            if (taskGaming == null && taskLogin == null)
+            {
+                CancelTokenSource = new CancellationTokenSource();
+                try
+                {
+                    int num_login_port = Convert.ToInt32(numeric_login.Value);
+                    int num_game_port = Convert.ToInt32(numeric_game.Value);
+                    IPEndPoint ip_game = new IPEndPoint(IPAddress.Parse(textServerIP.Text), num_game_port);
+                    IPEndPoint ip_login = new IPEndPoint(IPAddress.Parse(textServerIP.Text), num_login_port);
+
+                    ls_login = new TcpListener(IPAddress.Parse("127.0.0.1"), 0);
+                    ls_login.Start();
+                    localLogin = (IPEndPoint)ls_login.LocalEndpoint;
+                    label7.Text = "TLogin: " + localLogin.Port.ToString();
+
+                    Tools.Log($"登录：{ls_login.LocalEndpoint}");
+
+                    ls_game = new TcpListener(IPAddress.Parse("127.0.0.1"), 0);
+                    ls_game.Start();
+                    ConnectModel.gPort = num_game_port;
+                    ConnectModel.lgPort = ((IPEndPoint)ls_game.LocalEndpoint).Port;
+                    label8.Text = "TGame: " + ConnectModel.lgPort.ToString();
+
+                    Tools.Log($"游戏: {ls_game.LocalEndpoint}");
+
+                    taskGaming = new Task(() => accept(ip_game, ls_game), CancelTokenSource.Token);
+                    taskLogin = new Task(() => accept(ip_login, ls_login), CancelTokenSource.Token);
+
+                    taskLogin.Start();
+                    taskGaming.Start();
+                }
+                catch (Exception ex)
+                {
+                    Tools.Log("[At Button start]: Error! " + ex.Message);
+                    throw;
+                }
+            }
+            WriteToText();
+            Process pro = new Process();
+            pro.StartInfo.FileName = Application.StartupPath + @"/Bin/Game.exe";
+            pro.StartInfo.Arguments = "-fl C0A80108 3039 12D82B";
+            pro.Start();
+            list_pro.Add(pro);
+>>>>>>> fd20c148dd604cc3b6cc6ec009d8f5c3333c5e12
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
