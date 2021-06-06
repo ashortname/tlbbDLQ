@@ -10,10 +10,6 @@ namespace tlbbDLQ
 {
     class ConnectModel
     {
-<<<<<<< HEAD
-=======
-
->>>>>>> fd20c148dd604cc3b6cc6ec009d8f5c3333c5e12
         /// <summary>
         /// 标识
         /// </summary>
@@ -124,13 +120,9 @@ namespace tlbbDLQ
                 Tools.Log("Connected.");
                 if (taskTo == null && taskFrom == null)
                 {
-<<<<<<< HEAD
-                    taskTo = new Task(() => transport(accept, trans, "C-->S"), CancelTokenSource.Token);
-                    taskFrom = new Task(() => transport(trans, accept, "S-->C"), CancelTokenSource.Token);
-=======
+
                     taskTo = new Task(() => transport(accept, trans, "C to S"), CancelTokenSource.Token);
                     taskFrom = new Task(() => transport(trans, accept, "S to C"), CancelTokenSource.Token);
->>>>>>> fd20c148dd604cc3b6cc6ec009d8f5c3333c5e12
                     taskTo.Start();
                     taskFrom.Start();
                 }
