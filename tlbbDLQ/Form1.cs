@@ -104,7 +104,6 @@ namespace tlbbDLQ
                CancelTokenSource = new CancellationTokenSource();
                try
                {
-
                    ls_login = new TcpListener(IPAddress.Parse("127.0.0.1"), 0);
                    ls_login.Start();
                    localLogin = (IPEndPoint)ls_login.LocalEndpoint;
